@@ -314,7 +314,12 @@ class CherryToast extends StatefulWidget {
 
   void show(BuildContext context) {
     overlayEntry = _overlayEntryBuilder();
-    Overlay.maybeOf(context)?.insert(overlayEntry!);
+    final overlay = Overlay.maybeOf(context);
+    if (overlay != null) {
+      overlay.insert(overlayEntry!);
+    } else {
+      Navigator.of(context).overlay?.insert(overlayEntry!);
+    }
   }
 
   void closeOverlay() {
